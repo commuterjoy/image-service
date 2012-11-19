@@ -58,3 +58,10 @@ Notes
 - How do infographics, maps, graphics with writing on differ? 
 - Maybe the client specifying a size, in bytes, for the image is better than the (JPG) quality.
 
+Firecrest
+---------
+
+A tiny, restless jewel of a bird ...
+
+![](http://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Regulus_ignicapilla_Arundel.jpg/320px-Regulus_ignicapilla_Arundel.jpg)
+
