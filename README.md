@@ -17,7 +17,7 @@ Usage
 brew install imagemagick
 npm install imagemagick
 node server.js
-curl -i 'http://127.0.0.1:1337/sys-images/Guardian/Pix/pictures/2012/11/18/1353253141824/8fe4274a-958e-40a8-a2d8-6d67f47fe542-460.jpeg?width=300&quality=0.3'
+curl -i 'http://127.0.0.1:1337/http://news.bbcimg.co.uk/media/images/64233000/jpg/_64233885_lorries_bbc.jpg?width=400&quality=0.1'
 ```
 
 Setup
