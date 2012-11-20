@@ -63,7 +63,7 @@ describe('Firecrest', function(){
     
       waitsFor(function(){
         return done;
-        }, "image not loaded",  100)
+        }, "image not loaded",  500)
   
       runs(function() {
         expect(bytes).toBe(295);
@@ -93,10 +93,41 @@ describe('Firecrest', function(){
 
       waitsFor(function(){
         return done;
-        }, "error callback not invoked",  100)
+        }, "error callback not invoked",  500)
   
       runs(function() {
         expect(errorMessage).toBe('response code was 404');
+      }) 
+  });
+
+  it('Should expose image meta-data', function() {
+      
+      var bytes,
+          meta,
+          done = false,
+          jpg = nock('http://static.guim.co.uk')
+            .get('/milburn.jpg')
+            .replyWithFile(200, __dirname + '/fixtures/milburn.jpg', {
+                'Content-Type': 'image/jpeg'
+            });
+ 
+      var options = {
+          host: 'static.guim.co.uk',
+          path: '/milburn.jpg'
+      }
+
+      firecrest.get(options, function(src, m) {
+            meta = m;
+            done = true;
+        }, function(err){
+        })
+
+      waitsFor(function(){
+        return done;
+        }, "error callback not invoked",  500)
+  
+      runs(function() {
+        expect(meta.exif.exposureTime).toBe('1/160');
       }) 
   });
 

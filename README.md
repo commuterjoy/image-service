@@ -63,5 +63,5 @@ Firecrest
 
 A tiny, restless jewel of a bird ...
 
-![](http://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Regulus_ignicapilla_Arundel.jpg/320px-Regulus_ignicapilla_Arundel.jpg)
+![A firecrest](http://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Regulus_ignicapilla_Arundel.jpg/320px-Regulus_ignicapilla_Arundel.jpg)
 
