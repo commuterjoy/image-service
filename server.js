@@ -17,12 +17,17 @@ http.createServer(function (req, res) {
             path: u.pathname
           }
 
-    firecrest.get(options, function(stdout) {
-            res.writeHead(200, {'Cache-Control': 'max-age=10'});
-            res.writeHead(200, {'Content-Type': 'image/jpeg'});
-            res.writeHead(200, {'X-I-Bytes': stdout.length});
+    firecrest.get(options, function(stdout, meta) {
+            
+            res.writeHead(200, {
+                'X-I-Bytes': stdout.length,
+                'Cache-Control': 'max-age=10',
+                'Content-Type': 'image/jpeg'
+            });
+            
             res.write(stdout, 'binary');
             res.end();
+
         }, function(err) {
             console.log(err);
         })
