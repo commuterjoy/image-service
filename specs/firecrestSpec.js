@@ -120,7 +120,7 @@ describe('Firecrest', function(){
             meta = m;
             done = true;
         }, function(err){
-        })
+      })
 
       waitsFor(function(){
         return done;
@@ -128,6 +128,38 @@ describe('Firecrest', function(){
   
       runs(function() {
         expect(meta.exif.exposureTime).toBe('1/160');
+      }) 
+  });
+  
+  it('Should crop an image with a given size and set of co-ordinates', function() {
+      
+      var bytes,
+          meta,
+          done = false,
+          jpg = nock('http://static.guim.co.uk')
+            .get('/milburn.jpg')
+            .replyWithFile(200, __dirname + '/fixtures/milburn.jpg', {
+                'Content-Type': 'image/jpeg'
+            });
+ 
+      var options = {
+          host: 'static.guim.co.uk',
+          path: '/milburn.jpg',
+          geom: '10x20+1+1'
+      }
+
+      firecrest.get(options, function(src) {
+            bytes = src.length;
+            done = true;
+        }, function(err){
+      })
+
+      waitsFor(function(){
+        return done;
+      }, "error callback not invoked",  500)
+  
+      runs(function() {
+        expect(bytes).toBe(3701);
       }) 
   });
 
