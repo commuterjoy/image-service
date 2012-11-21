@@ -1,4 +1,3 @@
-
 Proxies HTTP requests for images via imagemagick using Node.js.
 
 Why?
@@ -28,7 +27,7 @@ OS X instructions only so far,
 brew install imagemagick
 npm install imagemagick
 node server.js
-curl -i 'http://127.0.0.1:1337/http://news.bbcimg.co.uk/media/images/64233000/jpg/_64233885_lorries_bbc.jpg?width=400&quality=0.1'
+curl -i 'http://127.0.0.1:1337/http://news.bbcimg.co.uk/path/to/jpg?width=400&quality=0.1'
 ```
 
 _TODO: proper install notes, npm etc._
@@ -65,11 +64,11 @@ dynamically crop out the desired portion of the image without having to store mu
 
 This is an origin image, of two Reverends.
 
-![](docs/images/rev_original.jpg)
+![](https://raw.github.com/commuterjoy/image-service/master/docs/images/rev_original.jpg)
 
 This is a crop, better suited to small viewports.
 
-![](docs/images/rev_crop.jpg)
+![](https://raw.github.com/commuterjoy/image-service/master/docs/images/rev_crop.jpg)
 
 The crop was produced by the client requesting a geometry within the image, Ie.
 
