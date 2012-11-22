@@ -31,7 +31,7 @@ describe('Firecrest', function(){
     
       waitsFor(function(){
         return done;
-        }, "image not loaded",  100)
+        }, "image not loaded",  500)
   
       runs(function() {
         expect(bytes).toBe(285);
@@ -159,7 +159,7 @@ describe('Firecrest', function(){
       }, "error callback not invoked",  500)
   
       runs(function() {
-        expect(bytes).toBe(3701);
+        expect(bytes).toBe(1246);
       }) 
   });
 
