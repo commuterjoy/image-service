@@ -8,7 +8,14 @@ provided by the server.
 
 This is a simple proxy server that lets clients request
 images from an origin server and specify the format, size and compression
-ratio they want the server to given them back.
+ratio they want the server to give them back.
+
+So, we request the image URL _http://news.bbcimg.co.uk/path/to/jpg_ and have it resized to 250px and apply a 50%
+compression,
+
+```
+curl -i 'http://127.0.0.1:1337/http://news.bbcimg.co.uk/path/to/jpg?width=250&quality=0.5'
+```
 
 Requirements
 ------------
@@ -48,7 +55,7 @@ If the cache misses it then requests the image from the
 image proxy server, which in turn fetches the source image (Eg, a PNG) from an origin server before 
 returning it, transformed, with cache headers, ready for the next request.
 
-Stick as many of these proxy origin servers in as you wish.
+Stick as many of these proxy image servers in as you wish.
 
 _TODO: publish some throughput statistics_
 
