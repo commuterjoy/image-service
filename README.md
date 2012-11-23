@@ -45,15 +45,16 @@ Setup
 For scale, you'll want to set youselves up like this,
 
 ```
-Client -> Caching Proxy -> Image Proxy -> Image Origin
+Client -> Caching Proxy -> Load Balancer -> Image Proxy -> Image Origin
 ```
 
 The client (Eg, a web browser) requests an image, which travels through a 
 caching proxy (Eg, a CDN).
 
 If the cache misses it then requests the image from the
-image proxy server, which in turn fetches the source image (Eg, a PNG) from an origin server before 
-returning it, transformed, with cache headers, ready for the next request.
+image proxy server(s) sat behind a load balancer, which in turn fetch the source image (Eg, a PNG) from an origin server.
+
+The origin server returns the JPG/PNG and the the image proxy transforms it, adds some cache headers and responds to the CDN.
 
 Stick as many of these proxy image servers in as you wish.
 
