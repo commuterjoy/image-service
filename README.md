@@ -61,12 +61,13 @@ Stick as many of these proxy image servers in as you wish.
 Benchmark
 ---------
 
-Cycling over 200 unique images at a rate of 50 requests p/sec on a 2.4Ghz MacBook with 4GB RAM.
+I can cycle over 200 unique images at a rate of *50 requests p/sec* on a 2.4Ghz MacBook with 4GB RAM.
 
 The performance
-is ok, but largely depends on the size of images you are fetching processing.
-The boxes are stateless and scale horizontally, so do that if you want 1000's of
-requests p/sec.
+is ok but largely depends on the size of images you are fetching processing.
+
+The system is stateless and scale horizontally ad infinitum, so do that if you want 1000's of
+requests p/sec or more.
 
 Here's the siege report,
 
