@@ -45,7 +45,7 @@ Setup
 For scale, you'll want to set youselves up like this,
 
 ```
-Client -> Caching Proxy -> Load Balancer -> Image Proxy -> Image Origin
+Client -> Caching Proxy -> Load Balancer -> Image Proxies -> Image Origin
 ```
 
 The client (Eg, a web browser) requests an image, which travels through a 
@@ -61,13 +61,12 @@ Stick as many of these proxy image servers in as you wish.
 Benchmark
 ---------
 
-I can cycle over 200 unique images at a rate of *50 requests p/sec* on a 2.4Ghz MacBook with 4GB RAM.
+I can cycle over 200 unique 30kb source images at a rate of *50 requests p/sec* on a 2.4Ghz MacBook with 4GB RAM.
 
-The performance
-is ok but largely depends on the size of images you are fetching processing.
+The performance largely depends on the size of images you are fetching processing.
 
 The system is stateless and scale horizontally ad infinitum, so do that if you want 1000's of
-requests p/sec or more.
+requests p/sec, or more.
 
 Here's the siege report,
 
@@ -89,11 +88,11 @@ Shortest transaction:           0.08
 Crops 
 -----
 
-In responsive desing simply resizing a large image to a small one is often not good enough as
+In responsive design simply resizing a large image to a small one is often not good enough as
 the detail the photo is designed to convey ends up lost.
 
-To counter this the images is reframed,
-or cropped, to focus on the subject - Eg, specify a _x, y_ and a width will let the proxy server
+To counter this problem the image is typically reframed,
+or cropped, to focus on the subject - Eg, specify a _x, y_ and a _width_ will let the proxy server
 dynamically crop out the desired portion of the image without having to store multiple copies).
 
 This is an origin image, of two Reverends.
@@ -111,15 +110,21 @@ The crop was produced by the client requesting a geometry within the image, Ie.
 http://127.0.0.1:1337/http://static.guim.co.uk/path/to/jpg?geom=200x120+45+65
 ```
 
+And we can combine the crop though the resize action,
+
+```
+# as above, but resize the crop to 100x60 with 50% compression
+http://127.0.0.1:1337/http://static.guim.co.uk/path/to/jpg?geom=200x120+45+65&width=100&quality=0.5
+```
+
 To-do
 ----
 
 - Watermarking and  montages (more below).
 - Serialise the output as base64.
 - Better testing around PNG (including alpha), GIF (bounce to PNG) etc.
-- Pipeline, Eg, crop -> resize -> b+w etc.
 - Expose meta data in the response some way, Eg, _X-_ headers ?
-- Configuration - scope requests to a host, fixed number of variations, cache-control times etc.
+- Configuration - timeoouts, scope requests to a host, fixed number of variations, cache-control times etc.
 
 Watermarking
 ------------
