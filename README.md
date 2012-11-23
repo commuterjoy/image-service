@@ -58,7 +58,32 @@ The origin server returns the JPG/PNG and the the image proxy transforms it, add
 
 Stick as many of these proxy image servers in as you wish.
 
-_TODO: publish some throughput statistics_
+Benchmark
+---------
+
+Cycling over 200 unique images at a rate of 50 requests p/sec on a 2.4Ghz MacBook with 4GB RAM.
+
+The performance
+is ok, but largely depends on the size of images you are fetching processing.
+The boxes are stateless and scale horizontally, so do that if you want 1000's of
+requests p/sec.
+
+Here's the siege report,
+
+```
+Transactions:               1594 hits
+Availability:             100.00 %
+Elapsed time:              29.31 secs
+Data transferred:           5.95 MB
+Response time:              0.35 secs
+Transaction rate:          54.38 trans/sec
+Throughput:             0.20 MB/sec
+Concurrency:               19.20
+Successful transactions:        1594
+Failed transactions:               0
+Longest transaction:            1.30
+Shortest transaction:           0.08
+```
 
 Crops 
 -----
