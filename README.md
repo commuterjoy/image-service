@@ -54,6 +54,7 @@ Options in full,
 - --cache _n_ - The max-age value of the outbound cache-control header. Defaults to 31536000 (1 year).
 - --host _example.com_ - Disallows any request to the image origin server _not_ from the given domain. This allows each instance to process only your images. 
 - --port _n_ - The port you want to listen for connections on. Defaults to 1337.
+- --exif - Sends the image's EXIF metadata in the response headers
 
 Setup
 -----
@@ -100,8 +101,8 @@ Longest transaction:      1.30
 Shortest transaction:     0.08
 ```
 
-Crops 
------
+Crop
+----
 
 In responsive design simply resizing a large image to a small one is often not good enough as
 the detail the photo is designed to convey ends up lost.
@@ -135,10 +136,9 @@ http://127.0.0.1:1337/http://static.guim.co.uk/path/to/jpg?geom=200x120+45+65&wi
 To-do
 ----
 
-- Watermarking and  montages (more below).
+- Watermarking and montages (more below).
 - Serialise the output as base64.
 - Better testing around PNG (including alpha), GIF (bounce to PNG) etc.
-- Expose meta data in the response some way, Eg, _X-_ headers ?
 - Configuration - timeoouts, scope requests to a host, fixed number of variations, cache-control times etc.
 
 Watermarking

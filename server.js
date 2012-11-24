@@ -23,6 +23,7 @@ var conf = {
     cacheLength: argv.cache || 31536000, // seconds. cache-control headers on outbound (TODO: obey origin server?)
     host: argv.host || null, // only allow images from this origin host name
     port: argv.port || 1337, // port to listen for http on 
+    exif: argv.exif || false, // turn on/off the EXIF meta data response headers
     variations: {
             width: argv.width, // TODO: only allow these widths & compressions
             quality: argv.quality
@@ -65,8 +66,10 @@ http.createServer(function (req, res) {
             'Content-Type': 'image/jpeg'
         };
 
-        for (var attr in meta.exif) {
-            headers['X-Firecrest' + attr] =  meta.exif[attr]
+        if (conf.exif) {
+            for (var attr in meta.exif) {
+                headers['X-Firecrest' + attr] =  meta.exif[attr]
+            }
         }
 
         res.writeHead(200, headers);
