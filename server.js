@@ -59,12 +59,17 @@ http.createServer(function (req, res) {
 
     firecrest.get(options, function(stdout, meta) {
         
-        res.writeHead(200, {
+        var headers = {
             'Content-Length': stdout.length,
             'Cache-Control': 'max-age=' + conf.cacheLength,
             'Content-Type': 'image/jpeg'
-        });
+        };
 
+        for (var attr in meta.exif) {
+            headers['X-Firecrest' + attr] =  meta.exif[attr]
+        }
+
+        res.writeHead(200, headers);
         res.write(stdout, 'binary');
         res.end();
 
