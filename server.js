@@ -6,9 +6,11 @@ var http = require('http'),
     firecrest = require('./lib/firecrest');
 
 // catch (almost) all errors to help the server stay alive
-process.on('uncaughtException', function (res, err) {
-    console.log('Caught exception: ' + err);
-});
+function errors(err) {
+    console.log("caught exception", err)
+    this.writeHead(500);
+    this.end();
+}
     
 // in url space '+' characters are whitespace
 function fix_geom(geom) {
@@ -27,8 +29,13 @@ var conf = {
         }
 }
 
+console.log('Starting firecrest on 127.0.0.1:' + conf.port);
+
 http.createServer(function (req, res) {
-    
+
+    var errorHandler = errors.bind(res)
+    process.on("uncaughtException", errorHandler);
+
     var request = url.parse(req.url, true),
         w = request.query.width || 100,
         g = request.query.geom || null,
@@ -63,6 +70,8 @@ http.createServer(function (req, res) {
 
     }, function(err) {
         console.log(err);
+        res.writeHead(500);
+        res.end();
     })
 
 }).listen(conf.port, '127.0.0.1');
