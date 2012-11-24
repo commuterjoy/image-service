@@ -39,24 +39,39 @@ curl -i 'http://127.0.0.1:1337/http://news.bbcimg.co.uk/path/to/jpg?width=400&qu
 
 _TODO: proper install notes, npm etc._
 
+Configuration
+------------
+
+You can configure each instance of the HTTP service when starting the server, Eg.
+
+```
+node server.js --timeout 2000 --port 8080 
+```
+
+Options in full,
+
+- --timeout _n_ - Time allowed before the request to the origin server expires. Defaults to 1000ms.
+- --cache _n_ - The max-age value of the outbound cache-control header. Defaults to 31536000 (1 year).
+- --host _example.com_ - Disallows any request to the image origin server _not_ from the given domain. This allows each instance to process only your images. 
+- --port _n_ - The port you want to listen for connections on. Defaults to 1337.
+
 Setup
 -----
 
 For scale, you'll want to set youselves up like this,
 
 ```
-Client -> Caching Proxy -> Load Balancer -> Image Proxies -> Image Origin
+Client -> Caching Proxy -> Load Balancer -> Image Proxy Server(s) -> Image Origin
 ```
 
-The client (Eg, a web browser) requests an image, which travels through a 
-caching proxy (Eg, a CDN).
+The client (Eg, a web browser) requests an image, which travels through a caching proxy (Eg, a CDN).
 
 If the cache misses it then requests the image from the
 image proxy server(s) sat behind a load balancer, which in turn fetch the source image (Eg, a PNG) from an origin server.
 
 The origin server returns the JPG/PNG and the the image proxy transforms it, adds some cache headers and responds to the CDN.
 
-Stick as many of these proxy image servers in as you wish.
+Stick as many of these image proxy servers in as you wish.
 
 Benchmark
 ---------
@@ -71,18 +86,18 @@ requests p/sec, or more.
 Here's the siege report,
 
 ```
-Transactions:               1594 hits
+Transactions:             1594 hits
 Availability:             100.00 %
-Elapsed time:              29.31 secs
-Data transferred:           5.95 MB
-Response time:              0.35 secs
-Transaction rate:          54.38 trans/sec
-Throughput:             0.20 MB/sec
-Concurrency:               19.20
-Successful transactions:        1594
-Failed transactions:               0
-Longest transaction:            1.30
-Shortest transaction:           0.08
+Elapsed time:             29.31 secs
+Data transferred:         5.95 MB
+Response time:            0.35 secs
+Transaction rate:         54.38 trans/sec
+Throughput:               0.20 MB/sec
+Concurrency:              19.20
+Successful transactions:  1594
+Failed transactions:      0
+Longest transaction:      1.30
+Shortest transaction:     0.08
 ```
 
 Crops 
